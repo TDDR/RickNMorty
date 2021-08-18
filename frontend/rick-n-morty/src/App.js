@@ -3,7 +3,7 @@ import 'antd/dist/antd.css';
 import {BrowserRouter, Route} from 'react-router-dom';
 
 import HomePage from './components/HomePage';
-//import CharacterPage from './components/CharacterPage';
+import CharacterPage from './components/CharacterPage';
 
 import {Layout} from 'antd';
 const {Header, Footer, Content} = Layout;
@@ -16,7 +16,7 @@ function App() {
         <div className="App">
           <BrowserRouter>
             <Route path='/' exact strict component={HomePage} />
-            {/* <Route path='/:id' exact strict component={CharacterPage} /> */}
+            <Route path='/:id' exact strict component={CharacterPage} />
           </BrowserRouter>
         </div>
       </Content>

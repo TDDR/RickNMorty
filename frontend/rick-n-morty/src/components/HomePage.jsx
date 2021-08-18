@@ -3,6 +3,7 @@ import useServer from './apiHook';
 import {List, Card, TreeSelect, Button,} from 'antd';
 import { TreeNode } from 'antd/lib/tree-select';
 import Layout from 'antd/lib/layout/layout';
+import { Route } from 'react-router-dom';
 
 const HomePage = () => {
     const baseURL = 'http://localhost:5050/characters';
@@ -11,7 +12,7 @@ const HomePage = () => {
     const [filter, setFilter]= useState([]);
     
     if(data){
-        let charactersToDisplay = data;
+        let charactersToDisplay = data.results;
         //setCharacters(data);
 
         const applyFilter = () => {
@@ -60,36 +61,36 @@ const HomePage = () => {
             setCharacters(filtered);
              */
             }
-        }
+        }// end of applyFilter
          
         return (
             <Layout >
                 <div>
-                <TreeSelect
-                    placeholder='Select Filter'
-                    allowClear
-                    style={{width: '75%'}}
-                    multiple
-                    treeDefaultExpandAll = 'true'
-                    title= 'Filter:'
-                    value = {filter}
-                    onChange= {(value) => {
-                        setFilter(value);
-                    }}
-                >
-                    <TreeNode value='gender' title='Gender'>
-                        <TreeNode value='Female' title='Female'/>
-                        <TreeNode value='Male' title='Male'/>
-                        <TreeNode value='Genderless' title='Genderless'/>
-                        <TreeNode value='genderUnknown' title='Unknown'/>
-                    </TreeNode>
-                    <TreeNode value='status' title='Status'>
-                        <TreeNode value='Alive' title='Alive'/>
-                        <TreeNode value='Dead' title='Dead'/>
-                        <TreeNode value='statusUnknown' title='Unknown'/>
-                    </TreeNode>
-                </TreeSelect>
-                <Button style={{width: '25%', position:'float-right'}} type='dashed' onClick={applyFilter}>Apply Filter</Button>
+                    <TreeSelect
+                        placeholder='Select Filter'
+                        allowClear
+                        style={{width: '75%'}}
+                        multiple
+                        treeDefaultExpandAll = 'true'
+                        title= 'Filter:'
+                        value = {filter}
+                        onChange= {(value) => {
+                            setFilter(value);
+                        }}
+                    >
+                        <TreeNode value='gender' title='Gender'>
+                            <TreeNode value='Female' title='Female'/>
+                            <TreeNode value='Male' title='Male'/>
+                            <TreeNode value='Genderless' title='Genderless'/>
+                            <TreeNode value='genderUnknown' title='Unknown'/>
+                        </TreeNode>
+                        <TreeNode value='status' title='Status'>
+                            <TreeNode value='Alive' title='Alive'/>
+                            <TreeNode value='Dead' title='Dead'/>
+                            <TreeNode value='statusUnknown' title='Unknown'/>
+                        </TreeNode>
+                    </TreeSelect>
+                    <Button style={{width: '25%', position:'float-right'}} type='dashed' onClick={applyFilter}>Apply Filter</Button>
                 </div>
                 <List
                     grid={{
@@ -101,15 +102,16 @@ const HomePage = () => {
                         xl: 6,
                         xxl:4,
                     }}
-                    dataSource={charactersToDisplay}
+                    dataSource={charactersToDisplay} //give class and change value to filter??
                     renderItem={character => (
-                        <List.Item>
-                            <Card 
-                                title={character.name}
-                                cover={<img alt={character.name} src={character.image}/>}
-                            >
-                            </Card>
-                        </List.Item>
+                        <Route render = {({history}) => ( 
+                            <List.Item onClick={() => {history.push(`${character.id}`)}}>
+                                <Card 
+                                    title={character.name}
+                                    cover={<img alt={character.name} src={character.image}/>}
+                                ></Card>
+                            </List.Item>
+                        )}/>
                     )}
                 >
                 </List>
