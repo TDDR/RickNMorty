@@ -4,6 +4,8 @@ import {BrowserRouter, Route} from 'react-router-dom';
 
 import HomePage from './components/HomePage';
 import CharacterPage from './components/CharacterPage';
+import LocationPage from './components/LocationPage';
+import EpisodePage from './components/EpisodePage';
 
 import {Layout} from 'antd';
 const {Header, Footer, Content} = Layout;
@@ -17,6 +19,8 @@ function App() {
           <BrowserRouter>
             <Route path='/' exact strict component={HomePage} />
             <Route path='/:id' exact strict component={CharacterPage} />
+            <Route path='/location/:id' exact strict component={LocationPage} />
+            <Route path='/episode/:id' exact strict component={EpisodePage} />
           </BrowserRouter>
         </div>
       </Content>

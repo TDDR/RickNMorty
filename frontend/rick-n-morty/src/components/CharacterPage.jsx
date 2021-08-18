@@ -1,8 +1,7 @@
 import React from 'react'
 import { Route, useParams } from 'react-router-dom'
-import { Card, Image } from 'antd';
+import { Card, Image, List, Button } from 'antd';
 import useServer from './apiHook';
-import { List } from 'antd/lib/form/Form';
 
 const CharacterPage = () => {
     const param = useParams().id;
@@ -16,23 +15,42 @@ const CharacterPage = () => {
             >
                 <Image src={data.image} />
                 <h3>Status: {data.status}</h3>
-                <h3>Location: {data.location.name}</h3>
-                <h3>Episodes:
-                    <ul style={{listStyleType: 'none'}}>
-                        {data.episode.map(show => {
-                            return <li>{show}</li>
-                        })}
-                    </ul>
+                <h3>Location:
+                    <Route render = {({history}) => ( 
+                        <Button
+                            type='link' 
+                            onClick={() => {
+                                let id = data.location.url.match(/\d+$/)
+                                history.push(`/location/${id}`)
+                            }}>
+                                {data.location.name}
+                        </Button>
+                    )}/>
                 </h3>
-                    {/* <List
-                        itemLayout='vertical'
+                <h3>Episodes: </h3>
+                    <List
+                        grid={{
+                            gutter: 16,
+                            xs: 2,
+                            sm: 3,
+                            md: 4,
+                            lg: 5,
+                            xl: 6,
+                            xxl:6,
+                        }}
                         dataSource={data.episode}
                         renderItem={ep => (
-                            <List.Item>
-                                <List.Item.Meta title={ep}/>
-                            </List.Item>
+                            <Route render = {({history}) => ( 
+                                <List.Item>
+                                    <Button type='dashed' onClick={() => {
+                                        history.push(`/episode/${ep.match(/\d+$/)}`)
+                                    }}>
+                                        {`Episode - ${ep.match(/\d+$/)}`}
+                                    </Button>
+                                </List.Item>
+                            )}/>
                         )}
-                    ></List> */}
+                    ></List>
             </Card>
         )
     }
