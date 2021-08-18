@@ -12,7 +12,6 @@ const useServer = (url) => {
             throw new Error('Server response not OK');
         }
         const resJSON = await response.json();
-        //console.log(resJSON);
         setData(resJSON);
       } catch (err) {
         setError(err);
