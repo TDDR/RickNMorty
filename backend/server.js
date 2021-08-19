@@ -24,20 +24,32 @@ app.get('/characters', cors(corsConfig), async (req, res) => {
 
 //Get character by ID
 app.get('/character/:id', cors(corsConfig), async (req, res) => {
-    const character = await fetch(`${baseUrl}character/${req.params.id}`);
-    res.json(await character.json());
+    try{
+        const character = await fetch(`${baseUrl}character/${req.params.id}`);
+        res.json(await character.json());
+    } catch(e){
+        console.log(`ERROR: ${e}`)
+    }
 });
 
 //Get Location by ID
 app.get('/location/:id', cors(corsConfig), async (req, res) => {
-    const location = await fetch(`${baseUrl}location/${req.params.id}`);
-    res.json(await location.json());
+    try{
+        const location = await fetch(`${baseUrl}location/${req.params.id}`);
+        res.json(await location.json());
+    } catch(e){
+        console.log(`ERROR: ${e}`)
+    }
 });
 
 //Get Episode by ID
 app.get('/episode/:id', cors(corsConfig), async (req, res) => {
-    const episode = await fetch(`${baseUrl}episode/${req.params.id}`);
-    res.json(await episode.json());
+    try{
+        const episode = await fetch(`${baseUrl}episode/${req.params.id}`);
+        res.json(await episode.json());
+    } catch(e){
+        console.log(`ERROR: ${e}`)
+    }
 });
 
 app.listen(PORT, () => {

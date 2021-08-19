@@ -13,7 +13,11 @@ const {Header, Footer, Content} = Layout;
 function App() {
   return (
     <Layout>
-      <Header>Rick And Morty</Header>
+      <Header>
+        <h1 style={{color: 'white', textAlign: 'center'}}>
+          Rick And Morty Wiki
+        </h1>
+      </Header>
       <Content>
         <div className="App">
           <BrowserRouter>

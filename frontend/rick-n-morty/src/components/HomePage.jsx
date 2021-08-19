@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import useServer from './apiHook';
-import {List, Card, TreeSelect, Button, Pagination,} from 'antd';
+import {List, Card, TreeSelect, Button,} from 'antd';
 import { TreeNode } from 'antd/lib/tree-select';
 import Layout from 'antd/lib/layout/layout';
 import { Route } from 'react-router-dom';
@@ -16,37 +16,37 @@ const HomePage = () => {
         //setCharacters(data);
 
         const applyFilter = () => {
-            if(filter.length > 0){
+            if(filter.length > 0) {
                 let gender = undefined;
                 let status = undefined;
-                for(let i = 0; i < filter.length; i++){
+                for(let i = 0; i < filter.length; i++) {
                     if(filter[i] === 'Female' ||
                         filter[i] === 'Male' ||
                         filter[i] === 'Genderless' ||
-                        filter[i] === 'genderUnknown'){
+                        filter[i] === 'genderUnknown') {
                             gender = filter[i];
-                            if(gender === 'genderUnknown'){
+                            if(gender === 'genderUnknown') {
                                 gender = 'Unknown'
                             }
                     }
-                    else{
+                    else {
                     status = filter[i];
-                    if(status === 'statusUnknown'){
+                    if(status === 'statusUnknown') {
                         status = 'Unknown'
                     }
                 }
             }
-            if(gender){
+            if(gender) {
                 charactersToDisplay = charactersToDisplay.filter(character => {
                     return character.gender === gender
                 });
-                if(status){
+                if(status) {
                     charactersToDisplay = charactersToDisplay.filter(character => {
                         return character.status === status
                     });
                 }
             }
-            else{
+            else {
                 charactersToDisplay = charactersToDisplay.filter(character => {
                     return character.status === status
                 });
@@ -54,9 +54,9 @@ const HomePage = () => {
             console.log(charactersToDisplay)
             }
         }
-         
+
         return (
-            <Layout >
+            <Layout>
                 <div>
                     <TreeSelect
                         placeholder='Select Filter'
@@ -101,16 +101,18 @@ const HomePage = () => {
                     dataSource={charactersToDisplay}
                     renderItem={character => (
                         <Route render = {({history}) => ( 
-                            <List.Item onClick={() => {history.push(`${character.id}`)}}>
+                            <List.Item onClick={() => {
+                                history.push(`${character.id}`)}}
+                                >
                                 <Card 
                                     title={character.name}
-                                    cover={<img alt={character.name} src={character.image}/>}
+                                    cover={<img alt={character.name} 
+                                                src={character.image}/>}
                                 ></Card>
                             </List.Item>
                         )}/>
                     )}
-                >
-                </List>
+                ></List>
             </Layout>
         )
     }
