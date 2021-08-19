@@ -5,7 +5,7 @@ import useServer from './apiHook';
 
 const CharacterPage = () => {
     const param = useParams().id;
-    const url = `http://localhost:5050/character/${param}`;
+    const url = `https://rick-n-morty-server.herokuapp.com/character/${param}`;
     const {data, error} = useServer(url);
 
     if(data){

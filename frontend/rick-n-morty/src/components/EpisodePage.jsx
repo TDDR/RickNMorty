@@ -5,7 +5,7 @@ import { Button, List, Layout } from 'antd';
 
 const EpisodePage = () => {
     const param = useParams().id;
-    const url = `http://localhost:5050/episode/${param}`;
+    const url = `https://rick-n-morty-server.herokuapp.com/episode/${param}`;
     const {data, error} = useServer(url);
 
     if(data){
