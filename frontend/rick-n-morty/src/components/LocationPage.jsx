@@ -5,7 +5,7 @@ import { Button, Layout, List } from 'antd';
 
 const LocationPage = () => {
     const param = useParams().id;
-    const url = `http://localhost:5050/location/${param}`;
+    const url = `https://rick-n-morty-server.herokuapp.com/location/${param}`;
     const {data, error} = useServer(url);
 
     if(data){

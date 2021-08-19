@@ -6,7 +6,7 @@ import Layout from 'antd/lib/layout/layout';
 import { Route } from 'react-router-dom';
 
 const HomePage = () => {
-    const baseURL = 'http://localhost:5050/characters';
+    const baseURL = 'https://rick-n-morty-server.herokuapp.com/characters';
     const {data, error} = useServer(baseURL);
     //const [charactersToDisplay, setCharacters] = useState([])
     const [filter, setFilter]= useState([]);
