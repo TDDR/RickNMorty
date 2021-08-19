@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import useServer from './apiHook';
-import {List, Card, TreeSelect, Button,} from 'antd';
+import {List, Card, TreeSelect, Button, Pagination,} from 'antd';
 import { TreeNode } from 'antd/lib/tree-select';
 import Layout from 'antd/lib/layout/layout';
 import { Route } from 'react-router-dom';
@@ -10,7 +10,7 @@ const HomePage = () => {
     const {data, error} = useServer(baseURL);
     //const [charactersToDisplay, setCharacters] = useState([])
     const [filter, setFilter]= useState([]);
-    
+
     if(data){
         let charactersToDisplay = data.results;
         //setCharacters(data);
@@ -37,31 +37,23 @@ const HomePage = () => {
                 }
             }
             if(gender){
-                charactersToDisplay = charactersToDisplay.filter(character => {return character.gender === gender});
+                charactersToDisplay = charactersToDisplay.filter(character => {
+                    return character.gender === gender
+                });
                 if(status){
-                    charactersToDisplay = charactersToDisplay.filter(character => {return character.status === status});
+                    charactersToDisplay = charactersToDisplay.filter(character => {
+                        return character.status === status
+                    });
                 }
             }
             else{
-                charactersToDisplay = charactersToDisplay.filter(character => {return character.status === status});
+                charactersToDisplay = charactersToDisplay.filter(character => {
+                    return character.status === status
+                });
             }
             console.log(charactersToDisplay)
-
-            /**
-            let filtered = [];
-            if(gender){
-                filtered = charactersToDisplay.filter(character => {return character.gender === gender})
-                if(status){
-                    filtered = filtered.filter(character => {return character.status === status}));
-                }
             }
-            else{
-                filtered = charactersToDisplay.filter(character => {return character.status === status});
-            }
-            setCharacters(filtered);
-             */
-            }
-        }// end of applyFilter
+        }
          
         return (
             <Layout >
@@ -72,7 +64,7 @@ const HomePage = () => {
                         style={{width: '75%'}}
                         multiple
                         treeDefaultExpandAll = 'true'
-                        title= 'Filter:'
+                        title= 'Filter'
                         value = {filter}
                         onChange= {(value) => {
                             setFilter(value);
@@ -90,9 +82,13 @@ const HomePage = () => {
                             <TreeNode value='statusUnknown' title='Unknown'/>
                         </TreeNode>
                     </TreeSelect>
-                    <Button style={{width: '25%', position:'float-right'}} type='dashed' onClick={applyFilter}>Apply Filter</Button>
+                    <Button style={{width: '25%', 
+                                    position:'float-right'}} 
+                            type='dashed' 
+                            onClick={applyFilter}>Apply Filter</Button>
                 </div>
                 <List
+                    pagination={{position: 'both'}}
                     grid={{
                         gutter: 16,
                         xs: 1,
@@ -102,7 +98,7 @@ const HomePage = () => {
                         xl: 6,
                         xxl:4,
                     }}
-                    dataSource={charactersToDisplay} //give class and change value to filter??
+                    dataSource={charactersToDisplay}
                     renderItem={character => (
                         <Route render = {({history}) => ( 
                             <List.Item onClick={() => {history.push(`${character.id}`)}}>
